@@ -18,8 +18,9 @@
 
 int main(void)
 {
-    char newch;
-       SysCtlPeripheralEnable(SYSCTL_PERIPH_UART0);
+    char newch[10];
+    int i = 0;
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_UART0);
     SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
     UARTEnable(UART0_BASE);
     GPIOPinTypeUART(GPIO_PORTA_BASE,(GPIO_PIN_0 | GPIO_PIN_1));
@@ -28,17 +29,22 @@ int main(void)
     UARTConfigSetExpClk(UART0_BASE, SysCtlClockGet(), 9600, (UART_CONFIG_WLEN_8 | UART_CONFIG_STOP_ONE | UART_CONFIG_PAR_NONE));
     UARTCharPut(UART0_BASE, 'c');
     while(1)
-    {
-    while(!SysCtlPeripheralReady(SYSCTL_PERIPH_UART0))
-    {
-    }
-    //UARTCharPut(UART0_BASE, 'c');
-    while(UARTCharsAvail(UART0_BASE))
-    {
-        newch = UARTCharGetNonBlocking(UART0_BASE);
-        UARTCharPut(UART0_BASE, newch);
-    }
-}
+        {
+        while(!SysCtlPeripheralReady(SYSCTL_PERIPH_UART0))
+            {
+            }
+//UARTCharPut(UART0_BASE, 'c');
+        while(UARTCharsAvail(UART0_BASE))
+            {
+                newch[i] = UARTCharGetNonBlocking(UART0_BASE);
+                i++;
+            }
+        for(i=0;i<5;i++)
+            {
+            UARTCharPut(UART0_BASE, newch[i]);
+            }
+        i=0;
+        }
 }
 
 
