@@ -49,11 +49,11 @@ int main(void)
     {
         while(UARTCharsAvail(UART5_BASE))
         {
-            //UARTCharPut(UART0_BASE, UARTCharGet(UART5_BASE));
+            UARTCharPut(UART0_BASE, UARTCharGet(UART5_BASE));
             //for(i=0;newch[i] != '!';i++)
             //{
-                newch[i] = UARTCharGet(UART5_BASE);
-                i++;
+                //newch[i] = UARTCharGet(UART5_BASE);
+                //i++;
                 //if(newch[i] == '!')
                 //{
                     //for(j=0;j<=i;j++)
